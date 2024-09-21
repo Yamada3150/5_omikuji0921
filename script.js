@@ -169,7 +169,8 @@ document.getElementById("omikujiButton").addEventListener("click", function () {
     postToXButton.classList.add("hidden"); // ポストボタンを非表示
 
     // スピン処理に必要な変数の初期化
-    // let index = 0;  // 現在の公演情報を保持
+
+    let index = 0;  // 現在の公演情報を保持
     let count = 0; // 現在の回転数を保持
     let maxCount = 20; // 最大回転回数
     let speed = 50; // 初期回転速度
@@ -177,7 +178,7 @@ document.getElementById("omikujiButton").addEventListener("click", function () {
     function spin() {
         if (count < maxCount) {
                 // おみくじの内容をランダムに変更
-            const index = Math.floor(Math.random() * items.length);
+            index = Math.floor(Math.random() * items.length);
 
             document.getElementById("omikujiTitle").textContent = items[index].title;
             document.getElementById("omikujiTitle").textContent =
@@ -188,13 +189,13 @@ document.getElementById("omikujiButton").addEventListener("click", function () {
 
             // 回転の速度を徐々に遅くする
             speed += 5;
-            setTimeout(spin, speed);
+            setTimeout(spin, speed); // 繰り返す
             } else {
                 // 最終結果の公演情報を取得
                 const finalItem = items[index];
                 // 最終結果の表示
                 document.getElementById("omikujiTitle").textContent = finalItem.title;
-                document.getElementById("omikujiDetail").textContent =
+                document.getElementById("omikujiDetails").textContent =
                     `${finalItem.time}, ${finalItem.company}, ホール： ${finalItem.hall}`;
 
                 // ボタンを有効化/表示する設定
@@ -216,7 +217,7 @@ function postToX(finalItem) {
     const postText = `#技育祭 #講演おみくじ の結果は\n 「${finalItem.title}」でした！\n\n講演おみくじはこちら\nhttps://https://yamada3150.github.io/5_omikuji0921/\n\n技育祭の視聴申込はこちら\nhttps://talent.supporterz.jp/geeksai/2024autumn/`;
 
     // 開業を含むテキストをURLエンコードする
-    const encodeText = encodeURIComponent(postText);
+    const encodedText = encodeURIComponent(postText);
 
     // X投稿用のURLを生成
     const postUrl = `https://x.com/intent/tweet?text=${encodedText}`;
